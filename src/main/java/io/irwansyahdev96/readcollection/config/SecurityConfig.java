@@ -18,22 +18,11 @@ import io.irwansyahdev96.readcollection.filter.SecurityServletFilter;
 @Configuration
 public class SecurityConfig {
 
-    // @Bean
-    // public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder,
-    //                                                    UserService userService) throws Exception {
-
-    //     return http
-    //             .getSharedObject(AuthenticationManagerBuilder.class)
-    //             .userDetailsService(userService)
-    //             .passwordEncoder(passwordEncoder).and().build();
-    // }
-
     @Bean
     public List<RequestMatcher> requestMatchers(){
         final List<RequestMatcher> matchers = new ArrayList<>();
-        //matchers.add(new AntPathRequestMatcher("/users/**",HttpMethod.GET.name()));
-        matchers.add(new AntPathRequestMatcher("/users/**",HttpMethod.POST.name()));
-        matchers.add(new AntPathRequestMatcher("/login/**",HttpMethod.POST.name()));
+        matchers.add(new AntPathRequestMatcher("**",HttpMethod.GET.name()));
+        matchers.add(new AntPathRequestMatcher("**",HttpMethod.POST.name()));
 
         return matchers;
     }
