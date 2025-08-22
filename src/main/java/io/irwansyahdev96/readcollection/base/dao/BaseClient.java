@@ -2,6 +2,7 @@ package io.irwansyahdev96.readcollection.base.dao;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,9 @@ import io.irwansyahdev96.readcollection.base.dto.res.BaseTransactionResDto;
 
 public class BaseClient {
     
+    @Value("${secret.key}")
+    private String secretKey;
+
     public String ping(String server){
         RestTemplate restTemplate = new RestTemplate();
         
@@ -29,11 +33,21 @@ public class BaseClient {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    
     public Map<String, Object> get(String url){
         RestTemplate restTemplate = new RestTemplate();
 
-        return restTemplate.getForObject(url, Map.class);
+        // add header
+        restTemplate.getInterceptors().add((request, body, execution) -> {
+            request.getHeaders().set("X-Api-Key", secretKey);
+            return execution.execute(request, body);
+        });
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> data = restTemplate.getForObject(url, Map.class);
+
+        
+        return data;
     }
 
     public BaseTransactionResDto put(String url, Object requestBody){
@@ -54,7 +68,7 @@ public class BaseClient {
         }
     }
 
-    public BaseResSingleDto<?> get(String url, Class<?> clazz){
+    public BaseResSingleDto<?> getObject(String url){
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
