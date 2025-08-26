@@ -2,6 +2,7 @@
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY target/readcollection-read-0.0.1.jar  myapp.jar
-EXPOSE 8083
+COPY config/application.properties application.properties
+EXPOSE 8082
 ENTRYPOINT ["java", "-jar", "myapp.jar"]
 

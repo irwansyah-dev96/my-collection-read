@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.irwansyah96</groupId>
 	<artifactId>readcollection-read</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>readcollection-read</name>
 	<description>Collection Book Project</description>
 	<properties>
@@ -74,11 +74,11 @@
 		</dependency>
 
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>3.1.7</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<build>
