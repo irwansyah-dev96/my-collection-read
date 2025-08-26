@@ -40,8 +40,15 @@ public class BaseClient {
         // add header
         restTemplate.getInterceptors().add((request, body, execution) -> {
             request.getHeaders().set("X-Api-Key", secretKey);
+
+			request.getHeaders().forEach((key, values) -> {
+				System.out.println("Header " + key + " = " + String.join(", ", values));
+			});
+
             return execution.execute(request, body);
         });
+
+		System.out.println("URL: "+url);
 
         @SuppressWarnings("unchecked")
         Map<String, Object> data = restTemplate.getForObject(url, Map.class);
