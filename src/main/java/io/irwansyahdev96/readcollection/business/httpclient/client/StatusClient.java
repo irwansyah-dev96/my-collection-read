@@ -2,6 +2,7 @@ package io.irwansyahdev96.readcollection.business.httpclient.client;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,12 @@ import io.irwansyahdev96.readcollection.business.httpclient.model.Status;
 @Component
 public class StatusClient extends BaseClient{
     
+    @Value("${app.host.core}")
+    private String serverCore;
+
     public Status findByPK(String statusCode){
         StringBuilder sb = new StringBuilder();
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_STATUS)
         .append(String.format("%s/status", statusCode));
 

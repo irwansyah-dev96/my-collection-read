@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,13 @@ import io.irwansyahdev96.readcollection.util.DatetimeUtil;
 @Component
 public class BookClient extends BaseClient{
     
+    @Value("${app.host.core}")
+    private String serverCore;
+
     public List<Map<String,Object>> findAll(Integer page, Integer limit){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_BOOK)
         .append(String.format("?page=%d&limit=%d", page, limit));
 
@@ -49,7 +53,7 @@ public class BookClient extends BaseClient{
         if(!status.isEmpty())
             selection.append("&status=").append(status);
         
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_BOOK)
         .append(String.format("?page=%d&limit=%d", page, limit))
         .append(selection.toString());
@@ -70,7 +74,7 @@ public class BookClient extends BaseClient{
     public Integer countOfBook(){
         StringBuilder sb = new StringBuilder();
         
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_BOOK)
         .append(String.format("?page=%d&limit=%d", 1, 1));
 
@@ -95,7 +99,7 @@ public class BookClient extends BaseClient{
         if(!status.isEmpty())
             selection.append("&status=").append(status);
         
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_BOOK)
         .append(String.format("?page=%d&limit=%d", 1, 1))
         .append(selection.toString());
@@ -116,7 +120,7 @@ public class BookClient extends BaseClient{
 
     public Book findByPK(String issbn){
         StringBuilder sb = new StringBuilder();
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_BOOK)
         .append(String.format("/%s/issbn", issbn));
 
@@ -157,7 +161,7 @@ public class BookClient extends BaseClient{
 
     public BaseTransactionResDto update(Book book){
         StringBuilder sb = new StringBuilder();
-        sb.append(Server.SERVER_CORE)
+        sb.append(serverCore)
         .append(Server.PATH_BOOK)
         .append("/update-status");
 
