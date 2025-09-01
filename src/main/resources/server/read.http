@@ -1,0 +1,10 @@
+POST http://192.168.252.166:8082/mbc/read-books/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyYyI6InNlIiwiaWQiOiJpcndhbi5kZXYiLCJleHAiOjE3NTYyMjM0Mjd9.Ok5eoDsBed7GVIFd3pwb5bG8ilBfi7UiGg06f5qtkGE
+
+{
+    "pageOfRead":5,
+    "issbn":"ISB112233",
+    //"isReread":true,
+    "note":"Tuhan yang maha pemaaf"
+}
