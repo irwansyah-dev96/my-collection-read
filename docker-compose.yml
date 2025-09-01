@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    image: mbc-read:1.0
+    ports: 
+      - "8082:8082"
+    environment:
+      config_properties_location: application.properties
+    networks:
+      - core-network
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mybook_ms_read
+    volumes: 
+      - /root/docker/mysql/mcb_db_read:/var/lib/mysql
+      - ./config/mybook_ms_read.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - core-network
+
+networks:
+  core-network:
+    external: true
